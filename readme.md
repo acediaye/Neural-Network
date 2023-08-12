@@ -1,4 +1,4 @@
 # Neural Network
 
 # References
-[Samson Zhang](https://www.youtube.com/watch?v=w8yWXqWQYmU)
+[Independent Code](https://www.youtube.com/watch?v=pauPCy_s0Ok)

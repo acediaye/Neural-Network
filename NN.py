@@ -1,89 +1,115 @@
 import numpy as np
-import pandas as pd
 import matplotlib.pyplot as plt
 
-data = pd.read_csv('')  # original data
+# create dataset and labels from images
+path = r'C:\Program Files\MATLAB\R2018a\toolbox\nnet\nndemos\nndatasets\DigitDataset'
+data = np.zeros((10000, 28*28), dtype=np.uint8)
+labels = np.zeros((10000, 1), dtype=np.uint8)
+k = 0  # fill data 10,000 rows
+for i in range(0, 9):  # digits 0-9
+    folder = f'\{i}'
+    for j in range(1, 1000+1):  # images 1000
+        if i == 0:
+            filename = f'\image{9*1000+j}.png'
+        elif i == 1:
+            filename = f'\image{j}.png'
+        else:
+            filename = f'\image{(i-1)*1000+j}.png'
+        file = path + folder + filename
+        image = plt.imread(file)
+        image = image*255
+        image = image.astype(np.uint8)
+        k = k + 1
+        data[k,:] = np.reshape(image, (1,28*28))
+        labels[k,:] = i
+        
+# shuffle rows in data and label 
+temp = np.arange(10000)
+np.random.shuffle(temp)
+data = data[temp,:]
+labels = labels[temp,:]
 
-data = np.array(data)  # data into numpy array
-m, n = data.shape  # m - rows, n - columns
-np.random.shuffle(data)
+# split data into training set and test set
+split = 0.9
+train_data  = data[0:int(split*10000), :]
+train_label = labels[0:int(split*10000), :]
+test_data   = data[int(split*10000):, :]
+test_label  = labels[int(split*10000):, :]
 
-# each example is a row, tranpose so each example is a column
-data_dev = data[0:1000].T  # first 1000 examples. 
-Y_dev = data_dev[0]  # header label
-X_dev = data_dev[1:n]  # test set
-X_dev = X_dev / 255
+# init weights and bias uniform random
+w_ih = np.random.randn(20, 28*28)
+w_ho = np.random.randn(10, 20)
+b_ih = np.zeros((20, 1))
+b_ho = np.zeros((10, 1))
+encoding = np.array([[1, 0, 0, 0, 0, 0, 0, 0, 0, 0]])
+alpha = 0.1
+epochs = 200
 
-data_train = data[1000:m].T  # rest of examples
-Y_train = data_train[0]  # header label
-X_train = data_train[1:n]  # training set
-X_train = X_train / 255
+# train model
+for j in range(0, epochs):
+# for j in range(0, 1):  # epochs
+    correct = 0
+    for i in range(0, len(train_data)):
+    # for i in range(0, 1):
+        input1 = train_data[[i],:].astype(np.float64).T
+        answer = np.roll(encoding, train_label[i,:]).T
+        # forward propagation
+        hidden = w_ih@input1 + b_ih  # 20x1
+        hidden = 1/(1+np.exp(-hidden))
+        output = w_ho@hidden + b_ho  # 10x1
+        output = 1/(1+np.exp(-output))
+        if np.argmax(output) == train_label[i,:]:
+            correct = correct + 1
+        # error
+        error = 1/len(output)*(answer - output)**2  # 10x1
+        errorprime = 2/len(output)*(output - answer)  # 10x1
+        # backward propagation
+        # output to hidden
+        out2_grad = errorprime*output*(1-output)  # 10x1
+        w2_grad = out2_grad@hidden.T  # 10x1 * 20x1' = 10x20
+        in2_grad = w_ho.T@out2_grad  # 10x20' * 10x1 = 20x1
+        w_ho = w_ho - alpha*w2_grad  # 10x20 - 10x20
+        b_ho = b_ho - alpha*out2_grad  # 10x1 - 10x1
+        # hidden to input
+        out1_grad = in2_grad*hidden*(1-hidden)  # 20x1
+        w1_grad = out1_grad@input1.T  # 20x1 * 784x1' = 20x784
+        in1_grad = w_ih.T@out1_grad  # 20x784' * 20x1 = 784x1
+        w_ih = w_ih - alpha*w1_grad  # 20x784 - 20x784
+        b_ih = b_ih - alpha*out1_grad  # 20x1 - 20x1
+    print(f'loop: {j}, correct: {correct/len(train_data)*100:.2f}%')
 
-def init_params():
-    W1 = np.random.rand(10, 784) - 0.5
-    b1 = np.random.rand(10, 1) - 0.5
-    W2 = np.random.rand(10, 10) - 0.5
-    b2 = np.random.rand(10, 1) - 0.5
-    return W1, b1, W2, b2
+# run model
+np.set_printoptions(suppress=True) # don't use scientific notation
+loop = True
+while(loop):
+    x = input('enter index number:')
+    if x.isnumeric():
+        # print(x)
+        input1 = test_data[[int(x)],:].astype(np.float64).T
+        # forward propagation
+        hidden = w_ih@input1 + b_ih
+        hidden = 1/(1+np.exp(-hidden))  # value too large or too small
+        output = w_ho@hidden + b_ho
+        output = 1/(1+np.exp(-output))
+        print(f'answer: {test_label[int(x),:]}')
+        print(f'output:\n {output}')
+        print(f'predict: {np.argmax(output)}')
+        plt.figure(1)
+        plt.imshow(np.reshape(test_data[[int(x)],:], (28, 28)), cmap='gray')
+        plt.show()
+    else:
+        loop = False
 
-def ReLu(Z):
-    return np.maximum(Z, 0)
+print('done')
 
-def softmax(Z):
-    return np.exp(Z) / np.sum(np.exp(Z))
-
-def forward_prop(W1, b1, W2, b2, X):
-    Z1 = W1.dot(X) + b1
-    A1 = ReLu(Z1)
-    Z2 = W2.dot(A1) + b2
-    A2 = softmax(Z2)
-    return Z1, A1, Z2, A2
-
-def one_hot(Y):
-    one_hot_Y = np.zeros((Y.size, Y.max() + 1))  # exmaples, output classes +1
-    one_hot_Y[np.arange(Y.size), Y] = 1
-    one_hot_Y = one_hot_Y.T
-    return one_hot_Y
-
-def deriv_ReLu(Z):
-    return Z > 0
-
-def backward_prop(Z1, A1, Z2, A2, W2, X, Y):
-    m = Y.size
-    one_hot_Y = one_hot(Y)
-    dZ2 = A2 - one_hot_Y
-    dW2 = 1 / m * dZ2.dot(A1.T)
-    db2 = 1 / m * np.sum(dZ2)
-    dZ1 = W2.T.dot(dZ2) * deriv_ReLu(Z1)
-    dW1 = 1 / m * dZ1.dot(X.T)
-    db1 = 1 / m * np.sum(dZ1)
-    return dW1, db1, dW2, db2
-
-def update_params(W1, b1, W2, b2, dW1, db1, dW2, db2, alpha):
-    W1 = W1 - alpha * dW1
-    b1 = b1 - alpha * db1
-    W2 = W2 - alpha * dW2
-    b2 = b2 - alpha * db2
-    return W1, b1, W2, b2
-
-def get_predictions(A2):
-    return np.argmax(A2, 0)
-
-def get_accuracy(predictions, Y):
-    print(predictions, Y)
-    return np.sum(predictions == Y) / Y.size
-
-def gradient_descent(X, Y, iterations, alpha):
-    W1, b1, W2, b2 = init_params()
-    for i in range(iterations):
-        Z1, A1, Z2, A2 = forward_prop(W1, b1, W2, b2, X)
-        dW1, db1, dW2, db2 = backward_prop(Z1, A1, Z2, A2, W1, W2, X, Y)
-        W1, b1, W2, b2 = update_params(W1, b1, W2, b2, dW1, db1, dW2, db2, alpha)
-        if i % 10 == 0:
-            print(f'iteration: {i}')
-            print(f'Accuracy: {get_accuracy(get_predictions(A2), Y)}')
-    return W1, b1, W2, b2
-
-# main
-W1, b1, W2, b2 = gradient_descent(X_train, Y_train, 100, 0.1)
-
+# path = r'C:\Program Files\MATLAB\R2018a\toolbox\nnet\nndemos\nndatasets\DigitDataset'
+# file = r'\0\image9001.png'
+# image = plt.imread(path+file)
+# image = image*255
+# image = image.astype(np.uint8)
+# plt.figure(1)
+# plt.imshow(image, cmap='gray')
+# print(np.shape(image))
+# print(type(image[0,0]))
+# print(image[12,7])
+# plt.show()
