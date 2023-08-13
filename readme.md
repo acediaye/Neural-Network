@@ -30,7 +30,9 @@ $$
 \begin{bmatrix}
 y_1 \\\ y_2 \\\ ... \\\ y_j
 \end{bmatrix}_{jx1} = 
-\begin{bmatrix} w_{11} && w_{12} && ... && w_{1i} \\\ w_{21} && w_{22} && ... && w_{2i} \\\ ... && ... && && ... \\\ w_{j1} && w_{j2} && ... && w_{ji}\end{bmatrix}_{jxi}
+\begin{bmatrix}
+w_{11} && w_{12} && ... && w_{1i} \\\ w_{21} && w_{22} && ... && w_{2i} \\\ ... && ... && && ... \\\ w_{j1} && w_{j2} && ... && w_{ji}
+\end{bmatrix}_{jxi}
 \begin{bmatrix} x_1 \\\ x_2 \\\ ... \\\ x_i\end{bmatrix}_{ix1} +
 \begin{bmatrix} b_1 \\\ b_2 \\\ ... \\\ b_j\end{bmatrix}_{jx1}
 $$
@@ -185,6 +187,7 @@ $$
 
 # Activation Function: Sigmoid Function
 Forward propagation
+
 $$
 y_1 = f(x_1)
 $$
@@ -202,6 +205,7 @@ Y = f(X)
 $$
 
 Backward propagation
+
 $$
 \frac{dE}{dx_1} =
 \frac{dE}{dy_1}\frac{dy_1}{dx_1}
@@ -236,7 +240,7 @@ $$
 $$
 
 $$
-= 
+\frac{df}{dx} = 
 \frac{1}{(1+e^{-x})} * \frac{1 + e^{-x} - 1}{(1+e^{-x})} = \frac{1}{(1+e^{-x})} (\frac{1+e^{-x}}{(1+e^{-x})} - \frac{1}{(1+e^{-x})})
 $$
 
@@ -248,6 +252,7 @@ $$
 
 # Mean Square Error
 Forward propagation
+
 $$
 E = \frac{1}{n}\sum(y_i^* - y_i)^2
 $$
@@ -256,6 +261,7 @@ $$
 * $y$: calculated output
 
 Backward propagation
+
 $$
 \frac{dE}{dy_1} = 
 \frac{d}{dy_1}\frac{1}{n}[(y_1^*-y_1)^2 + (y_2^*-y_2)^2 + ... + (y_n^*-y_n)^2]
