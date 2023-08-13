@@ -91,9 +91,13 @@ $$
 $$
 
 $$
-\frac{dE}{dW} = 
-\begin{bmatrix} \frac{dE}{dy_1} \\\ \frac{dE}{dy_2} \\\ ... \\\ \frac{dE}{dy_j} \end{bmatrix}_{jx1}
-\begin{bmatrix} x_1 && x_2 && ... && x_i \end{bmatrix}_{1xi}
+\frac{dE}{dW} =
+\begin{bmatrix}
+\frac{dE}{dy_1} \\\ \frac{dE}{dy_2} \\\ ... \\\ \frac{dE}{dy_j}
+\end{bmatrix}_{jx1}
+\begin{bmatrix}
+x_1 && x_2 && ... && x_i
+\end{bmatrix}_{1xi}
 $$
 
 $$
