@@ -6,7 +6,7 @@ path = r'C:\Program Files\MATLAB\R2018a\toolbox\nnet\nndemos\nndatasets\DigitDat
 data = np.zeros((10000, 28*28), dtype=np.uint8)
 labels = np.zeros((10000, 1), dtype=np.uint8)
 k = 0  # fill data 10,000 rows
-for i in range(0, 9):  # digits 0-9
+for i in range(0, 10):  # digits 0-9
     folder = f'\{i}'
     for j in range(1, 1000+1):  # images 1000
         if i == 0:
@@ -19,9 +19,9 @@ for i in range(0, 9):  # digits 0-9
         image = plt.imread(file)
         image = image*255
         image = image.astype(np.uint8)
-        k = k + 1
         data[k,:] = np.reshape(image, (1,28*28))
         labels[k,:] = i
+        k = k + 1
         
 # shuffle rows in data and label 
 temp = np.arange(10000)
@@ -43,7 +43,7 @@ b_ih = np.zeros((20, 1))
 b_ho = np.zeros((10, 1))
 encoding = np.array([[1, 0, 0, 0, 0, 0, 0, 0, 0, 0]])
 alpha = 0.1
-epochs = 200
+epochs = 100
 
 # train model
 for j in range(0, epochs):

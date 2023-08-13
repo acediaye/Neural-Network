@@ -282,9 +282,10 @@ $$
 \frac{dE}{dY} = \frac{2}{n}(Y-Y^*)
 $$
 
-# Plots
-Being 62% correct (need fixing) 
+# MNIST Database
+Modified National Institude of Standards and Technology database is a large database of handwritten digits that is being used for training my machine learning model. Each digit 0-9 have 1000 grayscale pictures of 28 by 28 pixels. Each picture is fed into the model along with their labels for supervised learning. This model reaches ~52% correct (need fixing). The output is a vertical vector where each index represents a digit and the percent of certainty for the digit.
 
+# Plots
 ![image](plots/0_pic.PNG)
 ```
 answer: [0]
@@ -436,6 +437,23 @@ output:
  [0.33205404]
  [0.00029844]]
 predict: 8
+```
+
+![image](plots/9_pic.PNG)
+```
+answer: [9]
+output:
+ [[0.02861966]
+ [0.00502164]
+ [0.01220377]
+ [0.00686151]
+ [0.06386985]
+ [0.03620384]
+ [0.02198422]
+ [0.16301425]
+ [0.07836491]
+ [0.62043225]]
+predict: 9
 ```
 
 # References
