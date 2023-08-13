@@ -52,7 +52,7 @@ $$
 $$
 \frac{dE}{dW} = 
 \begin{bmatrix}
-\frac{dE}{dw_{11}} && \frac{dE}{dw_{12}} && ... && \frac{dE}{dw_{1i}} \\ \frac{dE}{dw_{21}} && \frac{dE}{dw_{22}} && ... && \frac{dE}{dw_{2i}} \\ ... && ...&& && ... \\ \frac{dE}{dw_{j1}} && \frac{dE}{dw_{j2}} && ... && \frac{dE}{dw_{ji}} 
+\frac{dE}{dw_{11}} && \frac{dE}{dw_{12}} && ... && \frac{dE}{dw_{1i}} \\\ \frac{dE}{dw_{21}} && \frac{dE}{dw_{22}} && ... && \frac{dE}{dw_{2i}} \\\ ... && ...&& && ... \\\ \frac{dE}{dw_{j1}} && \frac{dE}{dw_{j2}} && ... && \frac{dE}{dw_{ji}} 
 \end{bmatrix}_{jxi}
 $$
 
