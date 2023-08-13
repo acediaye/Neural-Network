@@ -283,7 +283,7 @@ $$
 $$
 
 # MNIST Database
-Modified National Institude of Standards and Technology database is a large database of handwritten digits that is being used for training my machine learning model. Each digit 0-9 have 1000 grayscale pictures of 28 by 28 pixels. Each picture is fed into the model along with their labels for supervised learning. This model reaches ~52% correct (need fixing). The output is a vertical vector where each index represents a digit and the percent of certainty for the digit.
+Modified National Institude of Standards and Technology database is a large database of handwritten digits that is being used for training my machine learning model. Each digit 0-9 have 1000 grayscale pictures of 28 by 28 pixels. Each picture is fed into the model along with their labels for supervised learning. This model reaches ~85% correct (need fixing). The output is a vertical vector where each index represents a digit and the percent of certainty for the digit.
 
 # Plots
 ![image](plots/0_pic.PNG)

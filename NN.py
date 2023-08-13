@@ -51,7 +51,7 @@ for j in range(0, epochs):
     correct = 0
     for i in range(0, len(train_data)):
     # for i in range(0, 1):
-        input1 = train_data[[i],:].astype(np.float64).T
+        input1 = train_data[[i],:].astype(np.float32).T/255
         answer = np.roll(encoding, train_label[i,:]).T
         # forward propagation
         hidden = w_ih@input1 + b_ih  # 20x1
@@ -85,7 +85,7 @@ while(loop):
     x = input('enter index number:')
     if x.isnumeric():
         # print(x)
-        input1 = test_data[[int(x)],:].astype(np.float64).T
+        input1 = test_data[[int(x)],:].astype(np.float32).T/255
         # forward propagation
         hidden = w_ih@input1 + b_ih
         hidden = 1/(1+np.exp(-hidden))  # value too large or too small
