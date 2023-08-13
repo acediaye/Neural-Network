@@ -76,7 +76,7 @@ for j in range(0, epochs):
         in1_grad = w_ih.T@out1_grad  # 20x784' * 20x1 = 784x1
         w_ih = w_ih - alpha*w1_grad  # 20x784 - 20x784
         b_ih = b_ih - alpha*out1_grad  # 20x1 - 20x1
-    print(f'loop: {j}, correct: {correct/len(train_data)*100:.2f}%')
+    print(f'loop: {j+1}, correct: {correct/len(train_data)*100:.2f}%')
 
 # run model
 np.set_printoptions(suppress=True) # don't use scientific notation
@@ -101,6 +101,8 @@ while(loop):
         loop = False
 
 print('done')
+
+# https://www.youtube.com/watch?v=pauPCy_s0Ok
 
 # path = r'C:\Program Files\MATLAB\R2018a\toolbox\nnet\nndemos\nndatasets\DigitDataset'
 # file = r'\0\image9001.png'
