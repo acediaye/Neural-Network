@@ -63,14 +63,14 @@ $$
 $$
 \frac{dE}{dB} =
 \begin{bmatrix}
-\frac{dE}{db_1} \\ \frac{dE}{db_2} \\ ... \\ \frac{dE}{db_j}
+\frac{dE}{db_1} \\\ \frac{dE}{db_2} \\\ ... \\\ \frac{dE}{db_j}
 \end{bmatrix}_{jx1}
 $$
 
 $$
 \frac{dE}{dX} = 
 \begin{bmatrix}
-\frac{dE}{dx_1} \\ \frac{dE}{dx_2} \\ ... \\ \frac{dE}{dx_i}
+\frac{dE}{dx_1} \\\ \frac{dE}{dx_2} \\\ ... \\\ \frac{dE}{dx_i}
 \end{bmatrix}_{ix1}
 $$
 
@@ -88,14 +88,14 @@ $$
 $$
 \frac{dE}{dW} = 
 \begin{bmatrix}
-\frac{dE}{dy_1} x_1 && \frac{dE}{dy_1} x_2 && ... && \frac{dE}{dy_1} x_i \\ \frac{dE}{dy_2} x_1 && \frac{dE}{dy_2} x_2 && ... && \frac{dE}{dy_2} x_i \\ ... && ... && && ... \\ \frac{dE}{dy_j} x_1 && \frac{dE}{dy_j} x_2 && ... && \frac{dE}{dy_j} x_i
+\frac{dE}{dy_1} x_1 && \frac{dE}{dy_1} x_2 && ... && \frac{dE}{dy_1} x_i \\\ \frac{dE}{dy_2} x_1 && \frac{dE}{dy_2} x_2 && ... && \frac{dE}{dy_2} x_i \\\ ... && ... && && ... \\\ \frac{dE}{dy_j} x_1 && \frac{dE}{dy_j} x_2 && ... && \frac{dE}{dy_j} x_i
 \end{bmatrix}_{jxi}
 $$
 
 $$
 \frac{dE}{dW} = 
 \begin{bmatrix}
-\frac{dE}{dy_1} \\ \frac{dE}{dy_2} \\ ... \\ \frac{dE}{dy_j}
+\frac{dE}{dy_1} \\\ \frac{dE}{dy_2} \\\ ... \\\ \frac{dE}{dy_j}
 \end{bmatrix}_{jx1}
 \begin{bmatrix}
 x_1 && x_2 && ... && x_i
@@ -143,20 +143,20 @@ $$
 $$
 \frac{dE}{dX} =
 \begin{bmatrix}
-\frac{dE}{dx_1} \\ \frac{dE}{dx_x} \\ ... \\ \frac{dE}{dx_i}
+\frac{dE}{dx_1} \\\ \frac{dE}{dx_x} \\\ ... \\\ \frac{dE}{dx_i}
 \end{bmatrix} =
 \begin{bmatrix}
-\frac{dE}{dy_1} w_{11} + \frac{dE}{dy_2} w_{21} + ... + \frac{dE}{dy_j} w_{j1} \\ \frac{dE}{dy_1} w_{12} + \frac{dE}{dy_2} w_{22} + ... + \frac{dE}{dy_j} w_{j2} \\ ... \\ \frac{dE}{dy_1} w_{1i} + \frac{dE}{dy_2} w_{2i} + ... + \frac{dE}{dy_j} w_{ji}
+\frac{dE}{dy_1} w_{11} + \frac{dE}{dy_2} w_{21} + ... + \frac{dE}{dy_j} w_{j1} \\\ \frac{dE}{dy_1} w_{12} + \frac{dE}{dy_2} w_{22} + ... + \frac{dE}{dy_j} w_{j2} \\\ ... \\\ \frac{dE}{dy_1} w_{1i} + \frac{dE}{dy_2} w_{2i} + ... + \frac{dE}{dy_j} w_{ji}
 \end{bmatrix}_{ix1}
 $$
 
 $$
 \frac{dE}{dX} = 
 \begin{bmatrix}
-w_{11} && w_{21} && ... && w_{j1} \\ w_{12} && w_{22} && ... && w_{j2} \\ ... && ... && && ... \\ w_{1i} && w_{2i} && ... && w_{ji}
+w_{11} && w_{21} && ... && w_{j1} \\\ w_{12} && w_{22} && ... && w_{j2} \\\ ... && ... && && ... \\\ w_{1i} && w_{2i} && ... && w_{ji}
 \end{bmatrix}_{ixj}
 \begin{bmatrix}
-\frac{dE}{dy_1} \\ \frac{dE}{dy_2} \\ ... \\ \frac{dE}{dy_j}
+\frac{dE}{dy_1} \\\ \frac{dE}{dy_2} \\\ ... \\\ \frac{dE}{dy_j}
 \end{bmatrix}_{jx1}
 $$
 
