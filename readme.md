@@ -26,14 +26,12 @@ $$ y_3 = x_1 w_{31} + x_2 w_{32} + ... + x_i w_{3i} + b_3 $$
 
 $$ y_j = x_1 w_{j1} + x_2 w_{j2} + ... + x_i w_{ji} + b_j $$
 
-
 $$ 
 \begin{bmatrix} y_1 \\\ y_2 \\\ ... \\\ y_j \end{bmatrix}_{jx1} =
 \begin{bmatrix} w_{11} && w_{12} && ... && w_{1i} \\\ w_{21} && w_{22} && ... && w_{2i} \\\ ... && ... && && ... \\\ w_{j1} && w_{j2} && ... && w_{ji} \end{bmatrix}_{jxi}
 \begin{bmatrix} x_1 \\\ x_2 \\\ ... \\\ x_i \end{bmatrix}_{ix1} +
 \begin{bmatrix} b_1 \\\ b_2 \\\ ... \\\ b_j \end{bmatrix}_{jx1} 
 $$
-
 
 $$ Y = W * X + B $$
 
@@ -94,12 +92,8 @@ $$
 
 $$
 \frac{dE}{dW} = 
-\begin{bmatrix}
-\frac{dE}{dy_1} \\\ \frac{dE}{dy_2} \\\ ... \\\ \frac{dE}{dy_j}
-\end{bmatrix}_{jx1}
-\begin{bmatrix}
-x_1 && x_2 && ... && x_i
-\end{bmatrix}_{1xi}
+\begin{bmatrix} \frac{dE}{dy_1} \\\ \frac{dE}{dy_2} \\\ ... \\\ \frac{dE}{dy_j} \end{bmatrix}_{jx1}
+\begin{bmatrix} x_1 && x_2 && ... && x_i \end{bmatrix}_{1xi}
 $$
 
 $$
