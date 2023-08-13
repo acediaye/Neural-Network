@@ -65,17 +65,17 @@ for j in range(0, epochs):
         errorprime = 2/len(output)*(output - answer)  # 10x1
         # backward propagation
         # output to hidden
-        out2_grad = errorprime*output*(1-output)  # 10x1
-        w2_grad = out2_grad@hidden.T  # 10x1 * 20x1' = 10x20
-        in2_grad = w_ho.T@out2_grad  # 10x20' * 10x1 = 20x1
-        w_ho = w_ho - alpha*w2_grad  # 10x20 - 10x20
-        b_ho = b_ho - alpha*out2_grad  # 10x1 - 10x1
+        dEdY2 = errorprime*output*(1-output)  # 10x1
+        dEdW2 = dEdY2@hidden.T  # 10x1 * 20x1' = 10x20
+        dEdX2 = w_ho.T@dEdY2  # 10x20' * 10x1 = 20x1
+        w_ho = w_ho - alpha*dEdW2  # 10x20 - 10x20
+        b_ho = b_ho - alpha*dEdY2  # 10x1 - 10x1
         # hidden to input
-        out1_grad = in2_grad*hidden*(1-hidden)  # 20x1
-        w1_grad = out1_grad@input1.T  # 20x1 * 784x1' = 20x784
-        in1_grad = w_ih.T@out1_grad  # 20x784' * 20x1 = 784x1
-        w_ih = w_ih - alpha*w1_grad  # 20x784 - 20x784
-        b_ih = b_ih - alpha*out1_grad  # 20x1 - 20x1
+        dEdY1 = dEdX2*hidden*(1-hidden)  # 20x1
+        dEdW1 = dEdY1@input1.T  # 20x1 * 784x1' = 20x784
+        dEdX1 = w_ih.T@dEdY1  # 20x784' * 20x1 = 784x1
+        w_ih = w_ih - alpha*dEdW1  # 20x784 - 20x784
+        b_ih = b_ih - alpha*dEdY1  # 20x1 - 20x1
     print(f'loop: {j+1}, correct: {correct/len(train_data)*100:.2f}%')
 
 # run model
