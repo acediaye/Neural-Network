@@ -55,27 +55,27 @@ for j in range(0, epochs):
         answer = np.roll(encoding, train_label[i,:]).T
         # forward propagation
         hidden = w_ih@input1 + b_ih  # 20x1
-        hidden = 1/(1+np.exp(-hidden))
+        hidden = 1/(1+np.exp(-hidden))  # sigmoid
         output = w_ho@hidden + b_ho  # 10x1
-        output = 1/(1+np.exp(-output))
+        output = 1/(1+np.exp(-output))  # sigmoid
         if np.argmax(output) == train_label[i,:]:
             correct = correct + 1
         # error
         error = 1/len(output)*(answer - output)**2  # 10x1
-        errorprime = 2/len(output)*(output - answer)  # 10x1
+        derror = 2/len(output)*(output - answer)  # 10x1
         # backward propagation
         # output to hidden
-        dEdY2 = errorprime*output*(1-output)  # 10x1
-        dEdW2 = dEdY2@hidden.T  # 10x1 * 20x1' = 10x20
-        dEdX2 = w_ho.T@dEdY2  # 10x20' * 10x1 = 20x1
-        w_ho = w_ho - alpha*dEdW2  # 10x20 - 10x20
-        b_ho = b_ho - alpha*dEdY2  # 10x1 - 10x1
+        doutput = derror*output*(1-output)  # dsigmoid 10x1
+        dw_ho = doutput@hidden.T  # 10x1 * 20x1' = 10x20
+        dhidden = w_ho.T@doutput  # 10x20' * 10x1 = 20x1
+        w_ho = w_ho - alpha*dw_ho  # 10x20 - 10x20
+        b_ho = b_ho - alpha*doutput  # 10x1 - 10x1
         # hidden to input
-        dEdY1 = dEdX2*hidden*(1-hidden)  # 20x1
-        dEdW1 = dEdY1@input1.T  # 20x1 * 784x1' = 20x784
-        dEdX1 = w_ih.T@dEdY1  # 20x784' * 20x1 = 784x1
-        w_ih = w_ih - alpha*dEdW1  # 20x784 - 20x784
-        b_ih = b_ih - alpha*dEdY1  # 20x1 - 20x1
+        dhidden = dhidden*hidden*(1-hidden)  # dsigmoid 20x1
+        dw_ih = dhidden@input1.T  # 20x1 * 784x1' = 20x784
+        dinput = w_ih.T@dhidden  # 20x784' * 20x1 = 784x1
+        w_ih = w_ih - alpha*dw_ih  # 20x784 - 20x784
+        b_ih = b_ih - alpha*dhidden  # 20x1 - 20x1
     print(f'loop: {j+1}, correct: {correct/len(train_data)*100:.2f}%')
 
 # run model
